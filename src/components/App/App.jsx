@@ -24,7 +24,8 @@ export default function App() {
 
   const updateFeedback = (feedbackType) => {
     feedbackType === "reset"
-      ? setFeedbackOptions({ good: 0, neutral: 0, bad: 0 })
+      ? setFeedbackOptions({ good: 0, neutral: 0, bad: 0 }) &&
+        window.localStorage.removeItem("savedFeedback")
       : setFeedbackOptions({
           ...feedbackOptions,
           [feedbackType]: feedbackOptions[feedbackType] + 1,
