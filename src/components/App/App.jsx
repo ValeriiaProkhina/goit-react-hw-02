@@ -8,11 +8,9 @@ import Notification from "../Notification/Notification";
 export default function App() {
   const [feedbackOptions, setFeedbackOptions] = useState(() => {
     const feedbackLS = window.localStorage.getItem("savedFeedback");
-    if (feedbackLS !== null) {
-      return JSON.parse(feedbackLS);
-    } else {
-      return { good: 0, neutral: 0, bad: 0 };
-    }
+    return feedbackLS !== null
+      ? JSON.parse(feedbackLS)
+      : { good: 0, neutral: 0, bad: 0 };
   });
 
   useEffect(() => {
@@ -24,8 +22,7 @@ export default function App() {
 
   const updateFeedback = (feedbackType) => {
     feedbackType === "reset"
-      ? setFeedbackOptions({ good: 0, neutral: 0, bad: 0 }) &&
-        window.localStorage.removeItem("savedFeedback")
+      ? setFeedbackOptions({ good: 0, neutral: 0, bad: 0 })
       : setFeedbackOptions({
           ...feedbackOptions,
           [feedbackType]: feedbackOptions[feedbackType] + 1,
